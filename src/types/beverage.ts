@@ -1,48 +1,47 @@
-// src/stores/beverageStore.ts
 import { defineStore } from "pinia";
-
+import tempretures from "../data/tempretures.json";
 import bases from "../data/bases.json";
 import creamers from "../data/creamers.json";
 import syrups from "../data/syrups.json";
-import temperatures from "../data/tempretures.json";
 
 export const useBeverageStore = defineStore("BeverageStore", {
   state: () => ({
-    bases,
-    creamers,
-    syrups,
-    temperatures,
-
+    temps: tempretures,
+    currentTemp: tempretures[0],
+    bases: bases,
     currentBase: bases[0],
+    creamers: creamers,
     currentCreamer: creamers[0],
+    syrups: syrups,
     currentSyrup: syrups[0],
-    currentTemp: temperatures[0],
-
-    beverages: [], // saved drinks
-    currentBeverage: null,
+    beverages: [] as Array<{
+      name: string;
+      base: string;
+      creamer: string;
+      syrup: string;
+      temp: string;
+    }>,
+    selectedBeverage: null as null | string,
   }),
-
   actions: {
     makeBeverage(name: string) {
-      if (!name) return;
-      const newDrink = {
+      this.beverages.push({
         name,
         base: this.currentBase,
         creamer: this.currentCreamer,
         syrup: this.currentSyrup,
-        temperature: this.currentTemp,
-      };
-      this.beverages.push(newDrink);
+        temp: this.currentTemp,
+      });
     },
-
-    showBeverage(bev: any) {
-      this.currentBeverage = bev;
-      this.currentBase = bev.base;
-      this.currentCreamer = bev.creamer;
-      this.currentSyrup = bev.syrup;
-      this.currentTemp = bev.temperature;
+    showBeverage(name: string) {
+      const bev = this.beverages.find((b) => b.name === name);
+      if (bev) {
+        this.currentBase = bev.base;
+        this.currentCreamer = bev.creamer;
+        this.currentSyrup = bev.syrup;
+        this.currentTemp = bev.temp;
+      }
     },
   },
-
   persist: true,
 });
