@@ -1,19 +1,23 @@
 <template>
-  <div class="froth">
-    <div v-for=" in 5" class="foam"></div>
+  <div v-if="store.currentCreamer !== 'None'" class="froth">
+    <div v-for="i in 5" :key="i" class="foam"></div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
-<style lang="scss" scoped>
+<script setup lang="ts">
+import { useBeverageStore } from "../stores/beverageStore";
+const store = useBeverageStore();
+</script>
+
+<style scoped>
 .froth {
   overflow: visible;
   transform: translateY(400%);
   position: relative;
   height: 20%;
   width: 100%;
-  background-color: #c6c6c6;
   animation: pour-tea 2s 2s forwards;
+  z-index: 3;
 }
 .foam {
   display: block;
@@ -23,35 +27,5 @@
   width: 40px;
   position: absolute;
 }
-
-.foam:nth-child(1) {
-  top: 0px;
-  left: -3px;
-}
-
-.foam:nth-child(2) {
-  top: 0px;
-  left: 55px;
-}
-
-.foam:nth-child(3) {
-  width: 30px;
-  height: 30px;
-  border-radius: 40px;
-  top: 3px;
-  left: 30px;
-}
-
-.foam:nth-child(4) {
-  width: 30px;
-  height: 30px;
-  border-radius: 45px;
-  top: 5px;
-  right: -2px;
-}
-
-.foam:nth-child(5) {
-  top: 2px;
-  right: 10px;
-}
+/* foam positions optional */
 </style>

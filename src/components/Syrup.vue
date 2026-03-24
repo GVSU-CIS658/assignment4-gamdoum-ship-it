@@ -1,9 +1,22 @@
 <template>
-  <div class="syrup"></div>
+  <div v-if="store.currentSyrup !== 'None'" class="syrup" :style="{ '--texture-color': getSyrupColor() }"></div>
 </template>
 
-<script setup lang="ts"></script>
-<style lang="scss" scoped>
+<script setup lang="ts">
+import { useBeverageStore } from "../stores/beverageStore";
+const store = useBeverageStore();
+
+function getSyrupColor() {
+  switch (store.currentSyrup) {
+    case "Caramel": return "#b87333";
+    case "Vanilla": return "#f3e5ab";
+    case "Chocolate": return "#5a3825";
+    default: return "#d6b48a";
+  }
+}
+</script>
+
+<style scoped>
 .syrup {
   transform: translateY(400%);
   position: relative;
