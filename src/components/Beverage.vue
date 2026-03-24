@@ -1,8 +1,7 @@
 <template>
   <Mug>
-    <Hot v-if="store.currentTemp === 'Hot'" />
-    <Cold v-else-if="store.currentTemp === 'Cold'" />
-
+    <Cold v-if="isIced" />
+    <Hot v-else />
     <Contents>
       <template v-slot:top>
         <Creamer />
@@ -18,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import { useBeverageStore } from "../stores/beverageStore";
 import Mug from "./Mug.vue";
 import Contents from "./Contents.vue";
 import Base from "./Base.vue";
@@ -27,5 +25,6 @@ import Syrup from "./Syrup.vue";
 import Hot from "./Hot.vue";
 import Cold from "./Cold.vue";
 
-const store = useBeverageStore();
+type Props = { isIced: boolean };
+defineProps<Props>();
 </script>
