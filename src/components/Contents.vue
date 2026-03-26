@@ -1,18 +1,22 @@
 <template>
-  <div class="carafe">
-    <slot name="top"></slot>
-    <slot name="mid"></slot>
-    <slot name="bottom"></slot>
+  <div class="contents">
+    <Base />
+    <Syrup />
+    <Creamer />
   </div>
 </template>
 
+<script setup lang="ts">
+import Base from "./Base.vue";
+import Creamer from "./Creamer.vue";
+import Syrup from "./Syrup.vue";
+</script>
+
 <style scoped>
-.carafe {
-  /*   // position: absolute; */
-  min-height: 96px;
-  overflow: hidden;
-  border-radius: 0.05em 0.05em 2.2em 2.2em;
-  background: #fff;
+.contents {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
 }
